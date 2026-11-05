@@ -1,0 +1,10 @@
+This is just some things I'm thinking for the ER diagram that we could potentially look at adding or changing
+-Trainer ID in the most recent games is capped at 6 digits, and 5 earlier, there is also a "secret ID" that makes it a total of 10 digits, could potentially implement?
+-Trainer/Pokemon gender? For pokemon would have to check gender ratio for legality, since some pokemon are only one gender or genderless
+-For ability, instead of an overall ID for every ability, have it be an integer between 1 and 3, since any pokemon can have one of max three abilities, and check based off of overall pokemon row to display? Dunno what would work better
+-For Pokemon ID, we do want to note that national dex number isn't a possible primary key (because of regional formes), but name always is if you include disambiguation (e.g: Wooper or Wooper-Paldea)
+-Potentially add trainer class? (e.g. Champion Cynthia vs. just Cynthia)
+-Could add moves and just not check move legality, because that changes over different games and would be difficult to decide what game's legality we go by
+-Trainer sprites for frontend? Could use Showdown's database at https://play.pokemonshowdown.com/sprites/trainers/, could also automatically do it based on trainer class
+-For party_member, could that just be something like the dependent in the company database? (forgetting the terminology rn)
+-Nicknames for party members?
