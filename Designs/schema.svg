@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="740" viewBox="0 0 1040 740" font-family="Segoe UI, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="706" viewBox="0 0 1040 706" font-family="Segoe UI, Arial, sans-serif">
   <style>
     .cell   { fill: #ffffff; stroke: #333; stroke-width: 1.3; }
     .ref    { fill: #2f6fb0; }
@@ -19,18 +19,17 @@
       <path d="M0,0 L10,5 L0,10 Z" fill="#333"/>
     </marker>
   </defs>
-  <rect width="1040" height="740" fill="#ffffff"/>
+  <rect width="1040" height="706" fill="#ffffff"/>
   <text x="30" y="40" class="h1">PokéTeam Builder: Relational Schema</text>
   <text x="30" y="62" class="sub">underlined = primary key · arrow = foreign key → referenced primary key</text>
 
   <!-- FK arrows -->
-  <path d="M405.0,184 V159.0 H295.0 V134" class="fkline" marker-end="url(#arrow)"/>
-  <path d="M445.0,268 V243.0 H295.0 V218" class="fkline" marker-end="url(#arrow)"/>
-  <path d="M665.0,302 V319.0 H295.0 V352" class="fkline" marker-end="url(#arrow)"/>
-  <path d="M775.0,302 V335.0 H405.0 V352" class="fkline" marker-end="url(#arrow)"/>
-  <path d="M295.0,386 V411.0 H295.0 V436" class="fkline" marker-end="url(#arrow)"/>
-  <path d="M405.0,386 V411.0 H720.0 V495.0 H295.0 V520" class="fkline" marker-end="url(#arrow)"/>
-  <text x="785.0" y="329.0" class="note">composite FK (pokemon_id, ability_id)</text>
+  <path d="M445.0,184 V159.0 H295.0 V134" class="fkline" marker-end="url(#arrow)"/>
+  <path d="M665.0,218 V235.0 H295.0 V268" class="fkline" marker-end="url(#arrow)"/>
+  <path d="M775.0,218 V251.0 H405.0 V268" class="fkline" marker-end="url(#arrow)"/>
+  <path d="M295.0,302 V327.0 H295.0 V352" class="fkline" marker-end="url(#arrow)"/>
+  <path d="M405.0,302 V327.0 H820.0 V411.0 H295.0 V436" class="fkline" marker-end="url(#arrow)"/>
+  <text x="785.0" y="245.0" class="note">composite FK (pokemon_id, ability_id)</text>
 
   <!-- Relations -->
   <rect x="30" y="100" width="170" height="34" rx="5" class="user"/>
@@ -40,62 +39,60 @@
   <rect x="350" y="100" width="110" height="34" class="cell"/>
   <text x="405.0" y="122" class="attr">name</text>
   <rect x="30" y="184" width="170" height="34" rx="5" class="user"/>
-  <text x="115" y="206" class="rname">TEAM</text>
-  <rect x="240" y="184" width="110" height="34" class="cell"/>
-  <text x="295.0" y="206" class="pk">team_id</text>
-  <rect x="350" y="184" width="110" height="34" class="cell"/>
-  <text x="405.0" y="206" class="attr">trainer_id</text>
-  <text x="456" y="195" class="fk">FK</text>
-  <rect x="460" y="184" width="110" height="34" class="cell"/>
-  <text x="515.0" y="206" class="attr">name</text>
-  <rect x="30" y="268" width="170" height="34" rx="5" class="user"/>
-  <text x="115" y="290" class="rname">PARTY_MEMBER</text>
-  <rect x="240" y="268" width="150" height="34" class="cell"/>
-  <text x="315.0" y="290" class="pk">party_member_id</text>
-  <rect x="390" y="268" width="110" height="34" class="cell"/>
-  <text x="445.0" y="290" class="attr">team_id</text>
-  <text x="496" y="279" class="fk">FK</text>
-  <rect x="500" y="268" width="110" height="34" class="cell"/>
-  <text x="555.0" y="290" class="attr">party_slot</text>
-  <rect x="610" y="268" width="110" height="34" class="cell"/>
-  <text x="665.0" y="290" class="attr">pokemon_id</text>
-  <text x="716" y="279" class="fk">FK</text>
-  <rect x="720" y="268" width="110" height="34" class="cell"/>
-  <text x="775.0" y="290" class="attr">ability_id</text>
-  <text x="826" y="279" class="fk">FK</text>
-  <rect x="30" y="352" width="170" height="34" rx="5" class="link"/>
-  <text x="115" y="374" class="rname">POKEMON_ABILITY</text>
+  <text x="115" y="206" class="rname">PARTY_MEMBER</text>
+  <rect x="240" y="184" width="150" height="34" class="cell"/>
+  <text x="315.0" y="206" class="pk">party_member_id</text>
+  <rect x="390" y="184" width="110" height="34" class="cell"/>
+  <text x="445.0" y="206" class="attr">trainer_id</text>
+  <text x="496" y="195" class="fk">FK</text>
+  <rect x="500" y="184" width="110" height="34" class="cell"/>
+  <text x="555.0" y="206" class="attr">party_slot</text>
+  <rect x="610" y="184" width="110" height="34" class="cell"/>
+  <text x="665.0" y="206" class="attr">pokemon_id</text>
+  <text x="716" y="195" class="fk">FK</text>
+  <rect x="720" y="184" width="110" height="34" class="cell"/>
+  <text x="775.0" y="206" class="attr">ability_id</text>
+  <text x="826" y="195" class="fk">FK</text>
+  <rect x="30" y="268" width="170" height="34" rx="5" class="link"/>
+  <text x="115" y="290" class="rname">POKEMON_ABILITY</text>
+  <rect x="240" y="268" width="110" height="34" class="cell"/>
+  <text x="295.0" y="290" class="pk">pokemon_id</text>
+  <text x="346" y="279" class="fk">FK</text>
+  <rect x="350" y="268" width="110" height="34" class="cell"/>
+  <text x="405.0" y="290" class="pk">ability_id</text>
+  <text x="456" y="279" class="fk">FK</text>
+  <rect x="460" y="268" width="110" height="34" class="cell"/>
+  <text x="515.0" y="290" class="attr">ability_slot</text>
+  <rect x="30" y="352" width="170" height="34" rx="5" class="ref"/>
+  <text x="115" y="374" class="rname">POKEMON</text>
   <rect x="240" y="352" width="110" height="34" class="cell"/>
   <text x="295.0" y="374" class="pk">pokemon_id</text>
-  <text x="346" y="363" class="fk">FK</text>
   <rect x="350" y="352" width="110" height="34" class="cell"/>
-  <text x="405.0" y="374" class="pk">ability_id</text>
-  <text x="456" y="363" class="fk">FK</text>
+  <text x="405.0" y="374" class="attr">dex_number</text>
+  <rect x="460" y="352" width="110" height="34" class="cell"/>
+  <text x="515.0" y="374" class="attr">name</text>
+  <rect x="570" y="352" width="110" height="34" class="cell"/>
+  <text x="625.0" y="374" class="attr">type1</text>
+  <rect x="680" y="352" width="110" height="34" class="cell"/>
+  <text x="735.0" y="374" class="attr">type2</text>
   <rect x="30" y="436" width="170" height="34" rx="5" class="ref"/>
-  <text x="115" y="458" class="rname">POKEMON</text>
+  <text x="115" y="458" class="rname">ABILITY</text>
   <rect x="240" y="436" width="110" height="34" class="cell"/>
-  <text x="295.0" y="458" class="pk">pokemon_id</text>
+  <text x="295.0" y="458" class="pk">ability_id</text>
   <rect x="350" y="436" width="110" height="34" class="cell"/>
   <text x="405.0" y="458" class="attr">name</text>
-  <rect x="460" y="436" width="110" height="34" class="cell"/>
-  <text x="515.0" y="458" class="attr">type1</text>
-  <rect x="570" y="436" width="110" height="34" class="cell"/>
-  <text x="625.0" y="458" class="attr">type2</text>
-  <rect x="30" y="520" width="170" height="34" rx="5" class="ref"/>
-  <text x="115" y="542" class="rname">ABILITY</text>
-  <rect x="240" y="520" width="110" height="34" class="cell"/>
-  <text x="295.0" y="542" class="pk">ability_id</text>
-  <rect x="350" y="520" width="110" height="34" class="cell"/>
-  <text x="405.0" y="542" class="attr">name</text>
 
   <!-- Legend -->
-  <g transform="translate(30,614)">
-    <rect x="0" y="0" width="980" height="106" rx="6" fill="#f6f7f9" stroke="#ccc"/>
+  <g transform="translate(30,520)">
+    <rect x="0" y="0" width="980" height="166" rx="6" fill="#f6f7f9" stroke="#ccc"/>
     <rect x="16" y="14" width="16" height="16" rx="3" class="user"/><text x="40" y="27" class="legend">User data</text>
     <rect x="150" y="14" width="16" height="16" rx="3" class="ref"/><text x="174" y="27" class="legend">Reference data</text>
     <rect x="310" y="14" width="16" height="16" rx="3" class="link"/><text x="334" y="27" class="legend">Linking table (M:N)</text>
-    <text x="16" y="52" class="legend">UNIQUE: TRAINER.name · POKEMON.name · ABILITY.name · TEAM (trainer_id, name) · PARTY_MEMBER (team_id, party_slot) and (team_id, pokemon_id)</text>
-    <text x="16" y="72" class="legend">CHECK: party_slot BETWEEN 1 AND 6 · type1, type2 = one of the 18 types · type1 ≠ type2</text>
-    <text x="16" y="92" class="legend">NOT NULL: every column except POKEMON.type2 (NULL for single-type Pokémon)</text>
+    <text x="16" y="52" class="legend">POKEMON: Gen 1–9. Alternate forms count as one Pokémon; regional variants are separate rows (own pokemon_id, same dex_number).</text>
+    <text x="16" y="72" class="legend">One team per trainer: a trainer's team is their PARTY_MEMBER rows (0–6), keyed by trainer_id.</text>
+    <text x="16" y="92" class="legend">UNIQUE: TRAINER.name · POKEMON.name · ABILITY.name · POKEMON_ABILITY (pokemon_id, ability_slot)</text>
+    <text x="16" y="112" class="legend">UNIQUE: PARTY_MEMBER (trainer_id, party_slot) and (trainer_id, pokemon_id)</text>
+    <text x="16" y="132" class="legend">CHECK: party_slot BETWEEN 1 AND 6 · ability_slot BETWEEN 1 AND 3 · type1, type2 = one of the 18 types · type1 ≠ type2</text>
+    <text x="16" y="152" class="legend">NOT NULL: every column except POKEMON.type2 (NULL for single-type Pokémon)</text>
   </g>
 </svg>
