@@ -15,6 +15,5 @@ CSC 4480 final project: an Oracle database of every Pokémon (Gen 1–9) with th
 ## Setup
 
 1. (Optional) Rebuild the data: `python scripts/organize_data.py`
-2. In SQL Developer on csdb, run with **Run Script (F5)**, in order:
-   1. `db/01_create_tables.sql` (safe to re-run)
-   2. `db/02_reference_data.sql` (expect 1,080 Pokémon, 293 abilities, 2,548 Pokémon–ability rows)
+2. In SQL Developer on csdb, run `db/01_create_tables.sql` with **Run Script (F5)** (safe to re-run).
+3. In [SQLcl](https://www.oracle.com/sqlcl/), opened from the project folder, run `@db/02_reference_data.sql`. It loads the CSVs in `Organized_Data/` (expect 1,080 Pokémon, 293 abilities, 2,548 Pokémon–ability rows).
