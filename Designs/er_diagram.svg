@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="820" height="960" viewBox="0 0 820 960" font-family="Segoe UI, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="920" viewBox="0 0 820 920" font-family="Segoe UI, Arial, sans-serif">
   <style>
     .body    { fill: #ffffff; stroke: none; }
     .outline { fill: none; stroke: #333; stroke-width: 1.5; }
@@ -32,26 +32,23 @@
     </marker>
   </defs>
 
-  <rect width="820" height="960" fill="#ffffff"/>
+  <rect width="820" height="920" fill="#ffffff"/>
   <text x="30" y="40" class="h1">PokéTeam Builder: ER Diagram</text>
-  <text x="30" y="62" class="sub">Crow's-foot notation · column, MySQL type, key · PK = primary key (underlined) · FK = foreign key · UK = unique</text>
+  <text x="30" y="62" class="sub">Crow's-foot notation · column, Oracle type, key · PK = primary key (underlined) · FK = foreign key · UK = unique</text>
 
   <!-- ============ Relationship lines (drawn first, under the boxes) ============ -->
-  <!-- TRAINER 1 — 0..many TEAM -->
+  <!-- TRAINER 1 — 0..6 PARTY_MEMBER (a trainer's party members are their one team) -->
   <path d="M160,178 V262" class="rel" marker-start="url(#one)" marker-end="url(#zmany)"/>
-  <text x="170" y="224" class="label-l">owns</text>
-  <!-- TEAM 1 — 0..6 PARTY_MEMBER -->
-  <path d="M160,374 V458" class="rel" marker-start="url(#one)" marker-end="url(#zmany)"/>
-  <text x="170" y="420" class="label-l">contains (0–6)</text>
-  <!-- POKEMON 1 — 1..2 POKEMON_ABILITY -->
-  <path d="M660,250 V458" class="rel" marker-start="url(#one)" marker-end="url(#many)"/>
-  <text x="670" y="358" class="label-l">can have (1–2)</text>
+  <text x="170" y="224" class="label-l">has on team (0–6)</text>
+  <!-- POKEMON 1 — 1..3 POKEMON_ABILITY -->
+  <path d="M660,250 V358" class="rel" marker-start="url(#one)" marker-end="url(#many)"/>
+  <text x="670" y="308" class="label-l">can have (1–3)</text>
   <!-- POKEMON_ABILITY 1 — 0..many PARTY_MEMBER -->
-  <path d="M530,502 H290" class="rel" marker-start="url(#one)" marker-end="url(#zmany)"/>
-  <text x="410" y="488" class="label">chosen as</text>
+  <path d="M530,390 H290" class="rel" marker-start="url(#one)" marker-end="url(#zmany)"/>
+  <text x="410" y="376" class="label">chosen as</text>
   <!-- ABILITY 1 — 1..many POKEMON_ABILITY -->
-  <path d="M660,650 V546" class="rel" marker-start="url(#one)" marker-end="url(#many)"/>
-  <text x="670" y="602" class="label-l">used by (1+)</text>
+  <path d="M660,554 V470" class="rel" marker-start="url(#one)" marker-end="url(#many)"/>
+  <text x="670" y="516" class="label-l">used by (1+)</text>
 
   <!-- ============ User data (orange) ============ -->
   <!-- TRAINER -->
@@ -60,68 +57,60 @@
     <path d="M0,30 V6 A6,6 0 0 1 6,0 H254 A6,6 0 0 1 260,6 V30 Z" class="user"/>
     <rect width="260" height="88" rx="6" class="outline"/>
     <text x="130" y="20" class="title">TRAINER</text>
-    <text x="10" y="47" class="pk">trainer_id</text><text x="130" y="47" class="dtype">INT</text><text x="250" y="47" class="key">PK</text>
-    <text x="10" y="71" class="attr">name</text><text x="130" y="71" class="dtype">VARCHAR(50)</text><text x="250" y="71" class="key">UK</text>
-  </g>
-  <!-- TEAM -->
-  <g transform="translate(30,262)">
-    <rect width="260" height="112" rx="6" class="body"/>
-    <path d="M0,30 V6 A6,6 0 0 1 6,0 H254 A6,6 0 0 1 260,6 V30 Z" class="user"/>
-    <rect width="260" height="112" rx="6" class="outline"/>
-    <text x="130" y="20" class="title">TEAM</text>
-    <text x="10" y="47" class="pk">team_id</text><text x="130" y="47" class="dtype">INT</text><text x="250" y="47" class="key">PK</text>
-    <text x="10" y="71" class="attr">trainer_id</text><text x="130" y="71" class="dtype">INT</text><text x="250" y="71" class="key">FK</text>
-    <text x="10" y="95" class="attr">name</text><text x="130" y="95" class="dtype">VARCHAR(50)</text>
+    <text x="10" y="47" class="pk">trainer_id</text><text x="130" y="47" class="dtype">NUMBER</text><text x="250" y="47" class="key">PK</text>
+    <text x="10" y="71" class="attr">name</text><text x="130" y="71" class="dtype">VARCHAR2(50)</text><text x="250" y="71" class="key">UK</text>
   </g>
   <!-- PARTY_MEMBER -->
-  <g transform="translate(30,458)">
+  <g transform="translate(30,262)">
     <rect width="260" height="160" rx="6" class="body"/>
     <path d="M0,30 V6 A6,6 0 0 1 6,0 H254 A6,6 0 0 1 260,6 V30 Z" class="user"/>
     <rect width="260" height="160" rx="6" class="outline"/>
     <text x="130" y="20" class="title">PARTY_MEMBER</text>
-    <text x="10" y="47" class="pk">party_member_id</text><text x="130" y="47" class="dtype">INT</text><text x="250" y="47" class="key">PK</text>
-    <text x="10" y="71" class="attr">team_id</text><text x="130" y="71" class="dtype">INT</text><text x="250" y="71" class="key">FK</text>
-    <text x="10" y="95" class="attr">party_slot (1–6)</text><text x="130" y="95" class="dtype">TINYINT</text>
-    <text x="10" y="119" class="attr">pokemon_id</text><text x="130" y="119" class="dtype">INT</text><text x="250" y="119" class="key">FK</text>
-    <text x="10" y="143" class="attr">ability_id</text><text x="130" y="143" class="dtype">INT</text><text x="250" y="143" class="key">FK</text>
+    <text x="10" y="47" class="pk">party_member_id</text><text x="130" y="47" class="dtype">NUMBER</text><text x="250" y="47" class="key">PK</text>
+    <text x="10" y="71" class="attr">trainer_id</text><text x="130" y="71" class="dtype">NUMBER</text><text x="250" y="71" class="key">FK</text>
+    <text x="10" y="95" class="attr">party_slot (1–6)</text><text x="130" y="95" class="dtype">NUMBER(1)</text>
+    <text x="10" y="119" class="attr">pokemon_id</text><text x="130" y="119" class="dtype">NUMBER</text><text x="250" y="119" class="key">FK</text>
+    <text x="10" y="143" class="attr">ability_id</text><text x="130" y="143" class="dtype">NUMBER</text><text x="250" y="143" class="key">FK</text>
   </g>
 
   <!-- ============ Reference data ============ -->
-  <!-- POKEMON -->
+  <!-- POKEMON (Gen 1-9; regional variants are their own rows) -->
   <g transform="translate(530,90)">
-    <rect width="260" height="136" rx="6" class="body"/>
+    <rect width="260" height="160" rx="6" class="body"/>
     <path d="M0,30 V6 A6,6 0 0 1 6,0 H254 A6,6 0 0 1 260,6 V30 Z" class="ref"/>
-    <rect width="260" height="136" rx="6" class="outline"/>
+    <rect width="260" height="160" rx="6" class="outline"/>
     <text x="130" y="20" class="title">POKEMON</text>
-    <text x="10" y="47" class="pk">pokemon_id</text><text x="130" y="47" class="dtype">INT</text><text x="250" y="47" class="key">PK</text>
-    <text x="10" y="71" class="attr">name</text><text x="130" y="71" class="dtype">VARCHAR(50)</text><text x="250" y="71" class="key">UK</text>
-    <text x="10" y="95" class="attr">type1</text><text x="130" y="95" class="dtype">ENUM</text>
-    <text x="10" y="119" class="attr">type2</text><text x="130" y="119" class="dtype">ENUM</text>
+    <text x="10" y="47" class="pk">pokemon_id</text><text x="130" y="47" class="dtype">NUMBER</text><text x="250" y="47" class="key">PK</text>
+    <text x="10" y="71" class="attr">dex_number</text><text x="130" y="71" class="dtype">NUMBER</text>
+    <text x="10" y="95" class="attr">name</text><text x="130" y="95" class="dtype">VARCHAR2(50)</text><text x="250" y="95" class="key">UK</text>
+    <text x="10" y="119" class="attr">type1</text><text x="130" y="119" class="dtype">VARCHAR2(10)</text>
+    <text x="10" y="143" class="attr">type2</text><text x="130" y="143" class="dtype">VARCHAR2(10)</text>
   </g>
   <!-- POKEMON_ABILITY -->
-  <g transform="translate(530,458)">
-    <rect width="260" height="88" rx="6" class="body"/>
+  <g transform="translate(530,358)">
+    <rect width="260" height="112" rx="6" class="body"/>
     <path d="M0,30 V6 A6,6 0 0 1 6,0 H254 A6,6 0 0 1 260,6 V30 Z" class="link"/>
-    <rect width="260" height="88" rx="6" class="outline"/>
+    <rect width="260" height="112" rx="6" class="outline"/>
     <text x="130" y="20" class="title">POKEMON_ABILITY</text>
-    <text x="10" y="47" class="pk">pokemon_id</text><text x="130" y="47" class="dtype">INT</text><text x="250" y="47" class="key">PK, FK</text>
-    <text x="10" y="71" class="pk">ability_id</text><text x="130" y="71" class="dtype">INT</text><text x="250" y="71" class="key">PK, FK</text>
+    <text x="10" y="47" class="pk">pokemon_id</text><text x="130" y="47" class="dtype">NUMBER</text><text x="250" y="47" class="key">PK, FK</text>
+    <text x="10" y="71" class="pk">ability_id</text><text x="130" y="71" class="dtype">NUMBER</text><text x="250" y="71" class="key">PK, FK</text>
+    <text x="10" y="95" class="attr">ability_slot (1–3)</text><text x="130" y="95" class="dtype">NUMBER(1)</text>
   </g>
   <!-- ABILITY -->
-  <g transform="translate(530,650)">
+  <g transform="translate(530,554)">
     <rect width="260" height="88" rx="6" class="body"/>
     <path d="M0,30 V6 A6,6 0 0 1 6,0 H254 A6,6 0 0 1 260,6 V30 Z" class="ref"/>
     <rect width="260" height="88" rx="6" class="outline"/>
     <text x="130" y="20" class="title">ABILITY</text>
-    <text x="10" y="47" class="pk">ability_id</text><text x="130" y="47" class="dtype">INT</text><text x="250" y="47" class="key">PK</text>
-    <text x="10" y="71" class="attr">name</text><text x="130" y="71" class="dtype">VARCHAR(50)</text><text x="250" y="71" class="key">UK</text>
+    <text x="10" y="47" class="pk">ability_id</text><text x="130" y="47" class="dtype">NUMBER</text><text x="250" y="47" class="key">PK</text>
+    <text x="10" y="71" class="attr">name</text><text x="130" y="71" class="dtype">VARCHAR2(50)</text><text x="250" y="71" class="key">UK</text>
   </g>
 
   <!-- ============ Legend ============ -->
-  <g transform="translate(30,790)">
-    <rect x="0" y="-16" width="760" height="166" rx="6" fill="#f6f7f9" stroke="#ccc"/>
+  <g transform="translate(30,700)">
+    <rect x="0" y="-16" width="760" height="206" rx="6" fill="#f6f7f9" stroke="#ccc"/>
     <rect x="16" y="2" width="16" height="16" rx="3" class="user"/>
-    <text x="40" y="15" class="legend">User data (trainers and teams)</text>
+    <text x="40" y="15" class="legend">User data (trainers and their team)</text>
     <rect x="260" y="2" width="16" height="16" rx="3" class="ref"/>
     <text x="284" y="15" class="legend">Reference data (from dataset)</text>
     <rect x="500" y="2" width="16" height="16" rx="3" class="link"/>
@@ -134,9 +123,11 @@
     <path d="M500,48 H560" class="rel" marker-end="url(#zmany)"/>
     <text x="570" y="53" class="legend">zero or many</text>
 
-    <text x="16" y="82" class="legend">type1, type2 = ENUM of the 18 types · type2 is NULL for single-type Pokémon · CHECK type1 ≠ type2</text>
-    <text x="16" y="102" class="legend">PARTY_MEMBER (pokemon_id, ability_id) is one composite FK → POKEMON_ABILITY (ability must be legal)</text>
-    <text x="16" y="122" class="legend">PARTY_MEMBER: UNIQUE (team_id, party_slot), UNIQUE (team_id, pokemon_id) · TEAM: UNIQUE (trainer_id, name)</text>
-    <text x="16" y="142" class="legend">CHECK: party_slot BETWEEN 1 AND 6</text>
+    <text x="16" y="82" class="legend">POKEMON covers Gen 1–9. Alternate forms (e.g., Rotom, Deoxys) count as one Pokémon (one row).</text>
+    <text x="16" y="102" class="legend">Regional variants (Alolan, Galarian, Hisuian, Paldean) are separate Pokémon: own pokemon_id, same dex_number.</text>
+    <text x="16" y="122" class="legend">type1, type2 = VARCHAR2(10), CHECK IN (the 18 types) · type2 NULL for single-type Pokémon · CHECK type1 ≠ type2</text>
+    <text x="16" y="142" class="legend">POKEMON_ABILITY: ability_slot 1–3 (3 = hidden), UNIQUE (pokemon_id, ability_slot) → at most 3 abilities</text>
+    <text x="16" y="162" class="legend">One team per trainer: PARTY_MEMBER UNIQUE (trainer_id, party_slot), UNIQUE (trainer_id, pokemon_id), slot 1–6</text>
+    <text x="16" y="182" class="legend">PARTY_MEMBER (pokemon_id, ability_id) is one composite FK → POKEMON_ABILITY (ability must be legal)</text>
   </g>
 </svg>
