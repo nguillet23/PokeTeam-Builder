@@ -10,7 +10,7 @@ CSC 4480 final project: a PostgreSQL database (hosted on Supabase) of every Pok√
 | `Imported_Data/` | Raw CSVs from [PokeAPI](https://github.com/PokeAPI/pokeapi) |
 | `scripts/` | `organize_data.py`: turns the raw CSVs into load-ready files |
 | `Organized_Data/` | `POKEMON.csv`, `ABILITY.csv`, `POKEMON_ABILITY.csv` |
-| `db/` | PostgreSQL: create tables, load reference data from the CSVs |
+| `db/` | PostgreSQL: create tables, load reference data from the CSVs, Row Level Security |
 
 ## Setup
 
@@ -22,3 +22,4 @@ CSC 4480 final project: a PostgreSQL database (hosted on Supabase) of every Pok√
    psql "postgresql://postgres.<project-ref>:<password>@<host>:5432/postgres"
    \i db/02_reference_data.sql
    ```
+4. Run `db/03_row_level_security.sql` (SQL Editor, or `psql ... -f db/03_row_level_security.sql`). It turns on Row Level Security so the public API can only read POKEMON, ABILITY and POKEMON_ABILITY; TRAINER and PARTY_MEMBER are hidden from it. Re-run it whenever you re-run step 2. The SQL Editor and psql still have full access.
