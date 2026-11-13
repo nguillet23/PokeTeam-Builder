@@ -15,11 +15,18 @@ CSC 4480 final project: a PostgreSQL database (hosted on Supabase) of every Pok�
 ## Setup
 
 1. (Optional) Rebuild the data: `python scripts/organize_data.py`
-2. In the Supabase dashboard's **SQL Editor**, run `db/01_create_tables.sql` (safe to re-run; it drops and recreates the tables).
-3. From a terminal in the project folder, connect with [psql](https://www.postgresql.org/download/) using the Supabase connection string (dashboard → **Connect** → Session pooler URI), then run `\i db/02_reference_data.sql`. It `\copy`s the CSVs in `Organized_Data/` into the tables (expect 1,080 Pokémon, 293 abilities, 2,548 Pokémon–ability rows).
+2. Run the three scripts in `db/` in order, from a terminal in the project folder, with [psql](https://www.postgresql.org/download/). Get the host and user from the Supabase dashboard (**Connect** → **Direct** → **Session pooler**):
 
+   ```powershell
+   $env:PGPASSWORD = '<database password>'
+   psql -h <pooler-host> -p 5432 -U postgres.<project-ref> -d postgres `
+        -f db/01_create_tables.sql -f db/02_reference_data.sql -f db/03_row_level_security.sql
    ```
-   psql "postgresql://postgres.<project-ref>:<password>@<host>:5432/postgres"
-   \i db/02_reference_data.sql
-   ```
-4. Run `db/03_row_level_security.sql` (SQL Editor, or `psql ... -f db/03_row_level_security.sql`). It turns on Row Level Security so the public API can only read POKEMON, ABILITY and POKEMON_ABILITY; TRAINER and PARTY_MEMBER are hidden from it. Re-run it whenever you re-run step 2. The SQL Editor and psql still have full access.
+
+   | Script | What it does | Where it can run |
+   |---|---|---|
+   | `01_create_tables.sql` | Drops and recreates the five tables | SQL Editor or psql |
+   | `02_reference_data.sql` | `\copy`s the CSVs in `Organized_Data/` (expect 1,080 Pokémon, 293 abilities, 2,548 Pokémon–ability rows) | psql only |
+   | `03_row_level_security.sql` | Turns on Row Level Security: the public API can only read POKEMON, ABILITY and POKEMON_ABILITY; TRAINER and PARTY_MEMBER are hidden | SQL Editor or psql |
+
+   Re-running 01 wipes the data and RLS settings, so always run 02 and 03 after it. The SQL Editor and psql keep full access either way. Passing the password through `PGPASSWORD` avoids having to URL-encode characters like `#` in a connection string.

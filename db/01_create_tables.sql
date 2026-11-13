@@ -1,15 +1,21 @@
--- PokéTeam Builder: create the five tables (PostgreSQL / Supabase).
+-- ===========================================================================
+-- PokéTeam Builder, step 1 of 3: create the five tables (PostgreSQL / Supabase)
+-- ===========================================================================
 -- Matches Designs/er_diagram.svg and Designs/schema.svg.
 --
 -- Run order:
---   1. 01_create_tables.sql   (this file: drops and recreates everything)
---   2. 02_reference_data.sql  (loads POKEMON, ABILITY, POKEMON_ABILITY from the CSVs)
+--   1. 01_create_tables.sql       (this file)
+--   2. 02_reference_data.sql      load POKEMON, ABILITY, POKEMON_ABILITY from the CSVs
+--   3. 03_row_level_security.sql  lock down the public API
 --
--- This file can be pasted into the Supabase SQL Editor, or run with psql.
+-- How to run: Supabase SQL Editor, or psql (see README.md).
+-- Re-running:  safe. It drops and recreates every table, which deletes all
+--              data and RLS settings, so run 02 and 03 again afterwards.
+--
 -- Unquoted names are folded to lowercase by PostgreSQL (POKEMON -> pokemon).
 
 -- ---------------------------------------------------------------------------
--- Drop any existing tables so this script can be re-run.
+-- Drop existing tables (children first)
 -- ---------------------------------------------------------------------------
 DROP TABLE IF EXISTS PARTY_MEMBER    CASCADE;
 DROP TABLE IF EXISTS TRAINER         CASCADE;
@@ -18,7 +24,7 @@ DROP TABLE IF EXISTS ABILITY         CASCADE;
 DROP TABLE IF EXISTS POKEMON         CASCADE;
 
 -- ---------------------------------------------------------------------------
--- Reference data (loaded from the PokeAPI dataset)
+-- Reference data (loaded from the PokeAPI dataset by 02_reference_data.sql)
 -- ---------------------------------------------------------------------------
 
 -- One row per Pokémon, Gen 1-9. pokemon_id is the PokeAPI id.
@@ -53,8 +59,8 @@ CREATE TABLE ABILITY (
 );
 
 -- R2: Pokémon M:N Ability. Each row is one legal (Pokémon, ability) pair.
--- ability_slot 1-3 (3 = hidden) + UNIQUE (pokemon_id, ability_slot)
--- => at most three abilities per Pokémon.
+--     ability_slot 1-3 (3 = hidden) + UNIQUE (pokemon_id, ability_slot)
+--     => at most three abilities per Pokémon.
 -- R8: FKs use the default (NO ACTION), so referenced rows can't be deleted.
 CREATE TABLE POKEMON_ABILITY (
     pokemon_id   INTEGER  NOT NULL,
