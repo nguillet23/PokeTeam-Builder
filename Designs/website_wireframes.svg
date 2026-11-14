@@ -1,0 +1,342 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1240" height="1530" viewBox="0 0 1240 1530">
+  <title>PokéTeam Builder: website wireframes</title>
+  <style>
+    text { font-family: "Segoe UI", Arial, Helvetica, sans-serif; }
+    .title { font-size: 26px; font-weight: 700; fill: #1f2a44; }
+    .subtitle { font-size: 13px; fill: #6c757d; }
+    .label { font-size: 15px; font-weight: 700; fill: #1f2a44; }
+    .route { font-size: 13px; font-weight: 400; fill: #6c757d; font-family: Consolas, "Courier New", monospace; }
+    .url { font-size: 10px; fill: #495057; font-family: Consolas, "Courier New", monospace; }
+    .brand { font-size: 13px; font-weight: 700; fill: #ffffff; }
+    .nav { font-size: 12px; fill: #cfd6e6; }
+    .h1 { font-size: 18px; font-weight: 700; fill: #1f2a44; }
+    .h2 { font-size: 14px; font-weight: 700; fill: #1f2a44; }
+    .th { font-size: 11px; font-weight: 700; fill: #495057; }
+    .td { font-size: 12px; fill: #212529; }
+    .sm { font-size: 11px; fill: #495057; }
+    .muted { font-size: 11px; fill: #868e96; }
+    .link { fill: #3b5bdb; }
+    .ph { font-size: 12px; fill: #adb5bd; }
+    .btn { font-size: 12px; font-weight: 600; fill: #ffffff; text-anchor: middle; }
+    .note { font-size: 11px; font-style: italic; fill: #e8590c; }
+    .pill { font-size: 9px; font-weight: 600; fill: #ffffff; text-anchor: middle; }
+    .pill-dark { font-size: 9px; font-weight: 600; fill: #343a40; text-anchor: middle; }
+    .frame { fill: #ffffff; stroke: #c9ced6; stroke-width: 1.5; }
+    .input { fill: #ffffff; stroke: #adb5bd; }
+    .rowline { stroke: #e9ecef; }
+    .node { fill: #edf2ff; stroke: #3b5bdb; stroke-width: 1.5; }
+    .node-opt { fill: #fff4e6; stroke: #e8590c; stroke-width: 1.5; stroke-dasharray: 5 4; }
+    .nodetext { font-size: 12px; font-weight: 600; fill: #1f2a44; text-anchor: middle; }
+    .arrow { stroke: #495057; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#495057"/>
+    </marker>
+
+    <!-- Browser frame + site nav bar shared by every page (560 x 420) -->
+    <g id="chrome">
+      <rect class="frame" x="0" y="0" width="560" height="420" rx="10"/>
+      <path d="M10,0 H550 A10,10 0 0 1 560,10 V28 H0 V10 A10,10 0 0 1 10,0 z" fill="#eef0f3"/>
+      <circle cx="14" cy="14" r="4" fill="#ff6b6b"/>
+      <circle cx="26" cy="14" r="4" fill="#fcc419"/>
+      <circle cx="38" cy="14" r="4" fill="#51cf66"/>
+      <rect x="60" y="6" width="440" height="16" rx="8" fill="#ffffff" stroke="#dee2e6"/>
+      <rect x="0" y="28" width="560" height="34" fill="#1f2a44"/>
+      <text class="brand" x="16" y="50">PokéTeam Builder</text>
+      <text class="nav" x="420" y="50">Pokédex</text>
+      <text class="nav" x="482" y="50">Trainers</text>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="1240" height="1530" fill="#f8f9fa"/>
+
+  <text class="title" x="40" y="50">PokéTeam Builder: Website Wireframes</text>
+  <text class="subtitle" x="40" y="76">Low-fidelity page layouts for docs/Website_Plan.md · 2026-11-14 · Example data comes from the real tables; trainers and teams are made up.</text>
+
+  <!-- ===================================================================== -->
+  <!-- 1. Pokédex  /                                                          -->
+  <!-- ===================================================================== -->
+  <text class="label" x="40" y="128">1 · Pokédex <tspan class="route">  /</tspan></text>
+  <g transform="translate(40,140)">
+    <use href="#chrome" xlink:href="#chrome"/>
+    <text class="url" x="72" y="18">poketeam-builder.vercel.app/</text>
+
+    <text class="h1" x="20" y="92">Pokédex</text>
+    <rect class="input" x="20" y="104" width="300" height="26" rx="4"/>
+    <text class="ph" x="30" y="121">Search by name…</text>
+    <rect class="input" x="330" y="104" width="130" height="26" rx="4"/>
+    <text class="td" x="340" y="121">All types</text>
+    <text class="td" x="450" y="121" text-anchor="end">▾</text>
+    <rect x="470" y="104" width="70" height="26" rx="4" fill="#3b5bdb"/>
+    <text class="btn" x="505" y="121">Search</text>
+
+    <rect x="20" y="140" width="520" height="22" fill="#f1f3f5"/>
+    <text class="th" x="30" y="155">#</text>
+    <text class="th" x="90" y="155">Name</text>
+    <text class="th" x="300" y="155">Types</text>
+
+    <!-- rows: 30px each from y=162 -->
+    <text class="td" x="30" y="182">001</text><text class="td link" x="90" y="182">Bulbasaur</text>
+    <rect x="300" y="169" width="54" height="16" rx="8" fill="#78C850"/><text class="pill" x="327" y="180.5">grass</text>
+    <rect x="360" y="169" width="54" height="16" rx="8" fill="#A040A0"/><text class="pill" x="387" y="180.5">poison</text>
+    <line class="rowline" x1="20" y1="192" x2="540" y2="192"/>
+
+    <text class="td" x="30" y="212">004</text><text class="td link" x="90" y="212">Charmander</text>
+    <rect x="300" y="199" width="54" height="16" rx="8" fill="#F08030"/><text class="pill" x="327" y="210.5">fire</text>
+    <line class="rowline" x1="20" y1="222" x2="540" y2="222"/>
+
+    <text class="td" x="30" y="242">007</text><text class="td link" x="90" y="242">Squirtle</text>
+    <rect x="300" y="229" width="54" height="16" rx="8" fill="#6890F0"/><text class="pill" x="327" y="240.5">water</text>
+    <line class="rowline" x1="20" y1="252" x2="540" y2="252"/>
+
+    <text class="td" x="30" y="272">025</text><text class="td link" x="90" y="272">Pikachu</text>
+    <rect x="300" y="259" width="54" height="16" rx="8" fill="#F8D030"/><text class="pill-dark" x="327" y="270.5">electric</text>
+    <line class="rowline" x1="20" y1="282" x2="540" y2="282"/>
+
+    <text class="td" x="30" y="302">094</text><text class="td link" x="90" y="302">Gengar</text>
+    <rect x="300" y="289" width="54" height="16" rx="8" fill="#705898"/><text class="pill" x="327" y="300.5">ghost</text>
+    <rect x="360" y="289" width="54" height="16" rx="8" fill="#A040A0"/><text class="pill" x="387" y="300.5">poison</text>
+    <line class="rowline" x1="20" y1="312" x2="540" y2="312"/>
+
+    <text class="td" x="30" y="332">149</text><text class="td link" x="90" y="332">Dragonite</text>
+    <rect x="300" y="319" width="54" height="16" rx="8" fill="#7038F8"/><text class="pill" x="327" y="330.5">dragon</text>
+    <rect x="360" y="319" width="54" height="16" rx="8" fill="#A890F0"/><text class="pill" x="387" y="330.5">flying</text>
+    <line class="rowline" x1="20" y1="342" x2="540" y2="342"/>
+
+    <text class="muted" x="20" y="368">Showing 1–50 of 1,080</text>
+    <text class="sm link" x="540" y="368" text-anchor="end">‹ Prev    Next ›</text>
+    <text class="note" x="20" y="402">Click a name → Pokémon page. The type filter matches type1 OR type2.</text>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 2. Pokémon detail  /pokemon/[id]                                       -->
+  <!-- ===================================================================== -->
+  <text class="label" x="640" y="128">2 · Pokémon detail <tspan class="route">  /pokemon/[id]</tspan></text>
+  <g transform="translate(640,140)">
+    <use href="#chrome" xlink:href="#chrome"/>
+    <text class="url" x="72" y="18">poketeam-builder.vercel.app/pokemon/25</text>
+
+    <text class="sm link" x="20" y="84">← Pokédex</text>
+    <rect x="20" y="96" width="90" height="90" rx="6" fill="#f8f9fa" stroke="#adb5bd" stroke-dasharray="4 3"/>
+    <text class="muted" x="65" y="138" text-anchor="middle">sprite</text>
+    <text class="muted" x="65" y="152" text-anchor="middle">(optional)</text>
+    <text x="126" y="122" style="font-size:22px;font-weight:700;fill:#1f2a44">Pikachu</text>
+    <text class="muted" x="126" y="142">Dex #025 · pokemon_id 25</text>
+    <rect x="126" y="152" width="54" height="16" rx="8" fill="#F8D030"/><text class="pill-dark" x="153" y="163.5">electric</text>
+
+    <text class="h2" x="20" y="216">Abilities</text>
+    <rect x="20" y="226" width="520" height="22" fill="#f1f3f5"/>
+    <text class="th" x="30" y="241">Slot</text>
+    <text class="th" x="90" y="241">Ability</text>
+    <text class="th" x="300" y="241">Hidden?</text>
+    <text class="td" x="30" y="268">1</text><text class="td link" x="90" y="268">Static</text><text class="td" x="300" y="268">No</text>
+    <line class="rowline" x1="20" y1="278" x2="540" y2="278"/>
+    <text class="td" x="30" y="298">3</text><text class="td link" x="90" y="298">Lightning Rod</text><text class="td" x="300" y="298">Yes (hidden)</text>
+    <line class="rowline" x1="20" y1="308" x2="540" y2="308"/>
+
+    <rect x="20" y="322" width="520" height="40" rx="6" fill="#f1f3f5"/>
+    <text class="td" x="32" y="346">On <tspan font-weight="700">3</tspan> trainers' teams: <tspan class="link">Ash</tspan>, <tspan class="link">Misty</tspan>, <tspan class="link">Brock</tspan></text>
+
+    <text class="note" x="20" y="392">Click an ability → ability page. Click a trainer → their team.</text>
+    <text class="note" x="20" y="408">Query: POKEMON ⋈ POKEMON_ABILITY ⋈ ABILITY, plus COUNT over PARTY_MEMBER.</text>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 3. Ability  /abilities/[id]                                            -->
+  <!-- ===================================================================== -->
+  <text class="label" x="40" y="608">3 · Ability <tspan class="route">  /abilities/[id]</tspan></text>
+  <g transform="translate(40,620)">
+    <use href="#chrome" xlink:href="#chrome"/>
+    <text class="url" x="72" y="18">poketeam-builder.vercel.app/abilities/9</text>
+
+    <text class="sm link" x="20" y="84">← Back</text>
+    <text x="20" y="114" style="font-size:22px;font-weight:700;fill:#1f2a44">Static</text>
+    <text class="muted" x="20" y="134">ability_id 9</text>
+
+    <text class="h2" x="20" y="164">Pokémon with this ability</text>
+    <rect x="20" y="174" width="520" height="22" fill="#f1f3f5"/>
+    <text class="th" x="30" y="189">#</text>
+    <text class="th" x="90" y="189">Name</text>
+    <text class="th" x="260" y="189">Types</text>
+    <text class="th" x="440" y="189">Slot</text>
+
+    <text class="td" x="30" y="216">025</text><text class="td link" x="90" y="216">Pikachu</text>
+    <rect x="260" y="203" width="54" height="16" rx="8" fill="#F8D030"/><text class="pill-dark" x="287" y="214.5">electric</text>
+    <text class="td" x="440" y="216">1</text>
+    <line class="rowline" x1="20" y1="226" x2="540" y2="226"/>
+
+    <text class="td" x="30" y="246">026</text><text class="td link" x="90" y="246">Raichu</text>
+    <rect x="260" y="233" width="54" height="16" rx="8" fill="#F8D030"/><text class="pill-dark" x="287" y="244.5">electric</text>
+    <text class="td" x="440" y="246">1</text>
+    <line class="rowline" x1="20" y1="256" x2="540" y2="256"/>
+
+    <text class="td" x="30" y="276">100</text><text class="td link" x="90" y="276">Voltorb</text>
+    <rect x="260" y="263" width="54" height="16" rx="8" fill="#F8D030"/><text class="pill-dark" x="287" y="274.5">electric</text>
+    <text class="td" x="440" y="276">2</text>
+    <line class="rowline" x1="20" y1="286" x2="540" y2="286"/>
+
+    <text class="td" x="30" y="306">125</text><text class="td link" x="90" y="306">Electabuzz</text>
+    <rect x="260" y="293" width="54" height="16" rx="8" fill="#F8D030"/><text class="pill-dark" x="287" y="304.5">electric</text>
+    <text class="td" x="440" y="306">1</text>
+    <line class="rowline" x1="20" y1="316" x2="540" y2="316"/>
+
+    <text class="td" x="30" y="336">145</text><text class="td link" x="90" y="336">Zapdos</text>
+    <rect x="260" y="323" width="54" height="16" rx="8" fill="#F8D030"/><text class="pill-dark" x="287" y="334.5">electric</text>
+    <rect x="320" y="323" width="54" height="16" rx="8" fill="#A890F0"/><text class="pill" x="347" y="334.5">flying</text>
+    <text class="td" x="440" y="336">3 (hidden)</text>
+    <line class="rowline" x1="20" y1="346" x2="540" y2="346"/>
+
+    <text class="muted" x="20" y="370">… full list</text>
+    <text class="note" x="20" y="402">Click a name → Pokémon page. Query: ABILITY ⋈ POKEMON_ABILITY ⋈ POKEMON.</text>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 4. Trainers  /trainers                                                 -->
+  <!-- ===================================================================== -->
+  <text class="label" x="640" y="608">4 · Trainers <tspan class="route">  /trainers</tspan></text>
+  <g transform="translate(640,620)">
+    <use href="#chrome" xlink:href="#chrome"/>
+    <text class="url" x="72" y="18">poketeam-builder.vercel.app/trainers</text>
+
+    <text class="h1" x="20" y="92">Trainers</text>
+    <rect class="input" x="20" y="104" width="300" height="26" rx="4"/>
+    <text class="ph" x="30" y="121">New trainer name</text>
+    <rect x="330" y="104" width="120" height="26" rx="4" fill="#3b5bdb"/>
+    <text class="btn" x="390" y="121">Create trainer</text>
+
+    <rect x="20" y="146" width="520" height="22" fill="#f1f3f5"/>
+    <text class="th" x="30" y="161">Trainer</text>
+    <text class="th" x="200" y="161">Team size</text>
+
+    <text class="td link" x="30" y="190">Ash</text>
+    <rect x="200" y="180" width="180" height="10" rx="5" fill="#e9ecef"/><rect x="200" y="180" width="180" height="10" rx="5" fill="#3b5bdb"/>
+    <text class="sm" x="392" y="190">6 / 6</text>
+    <text class="sm link" x="540" y="190" text-anchor="end">Open →</text>
+    <line class="rowline" x1="20" y1="202" x2="540" y2="202"/>
+
+    <text class="td link" x="30" y="222">Brock</text>
+    <rect x="200" y="212" width="180" height="10" rx="5" fill="#e9ecef"/><rect x="200" y="212" width="60" height="10" rx="5" fill="#3b5bdb"/>
+    <text class="sm" x="392" y="222">2 / 6</text>
+    <text class="sm link" x="540" y="222" text-anchor="end">Open →</text>
+    <line class="rowline" x1="20" y1="234" x2="540" y2="234"/>
+
+    <text class="td link" x="30" y="254">Misty</text>
+    <rect x="200" y="244" width="180" height="10" rx="5" fill="#e9ecef"/><rect x="200" y="244" width="120" height="10" rx="5" fill="#3b5bdb"/>
+    <text class="sm" x="392" y="254">4 / 6</text>
+    <text class="sm link" x="540" y="254" text-anchor="end">Open →</text>
+    <line class="rowline" x1="20" y1="266" x2="540" y2="266"/>
+
+    <text class="td link" x="30" y="286">Gary</text>
+    <rect x="200" y="276" width="180" height="10" rx="5" fill="#e9ecef"/>
+    <text class="sm" x="392" y="286">0 / 6</text>
+    <text class="sm link" x="540" y="286" text-anchor="end">Open →</text>
+    <line class="rowline" x1="20" y1="298" x2="540" y2="298"/>
+
+    <text class="note" x="20" y="340">Create → INSERT INTO TRAINER, then go to that trainer's team page.</text>
+    <text class="note" x="20" y="358">Duplicate name → "That trainer name is taken (R4)".</text>
+    <text class="note" x="20" y="376">A new trainer starts with an empty team (R5 allows 0).</text>
+    <text class="note" x="20" y="394">Query: TRAINER LEFT JOIN PARTY_MEMBER … GROUP BY trainer.</text>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 5. Team builder  /trainers/[name]                                      -->
+  <!-- ===================================================================== -->
+  <text class="label" x="40" y="1088">5 · Team builder <tspan class="route">  /trainers/[name]</tspan></text>
+  <g transform="translate(40,1100)">
+    <use href="#chrome" xlink:href="#chrome"/>
+    <text class="url" x="72" y="18">poketeam-builder.vercel.app/trainers/Ash</text>
+
+    <text class="sm link" x="20" y="90">← Trainers</text>
+    <text class="h1" x="96" y="92">Ash's team</text>
+    <text class="muted" x="540" y="92" text-anchor="end">4 / 6 Pokémon</text>
+
+    <rect x="20" y="102" width="520" height="26" rx="4" fill="#fdecea" stroke="#e03131"/>
+    <text x="32" y="119" style="font-size:12px;fill:#c92a2a">✕  That Pokémon is already on this team (R6). Nothing was saved.</text>
+
+    <!-- slot cards: 164 x 104 -->
+    <g transform="translate(20,138)">
+      <rect x="0" y="0" width="164" height="104" rx="6" fill="#f8f9fa" stroke="#dee2e6"/>
+      <text class="muted" x="10" y="17">Slot 1</text>
+      <rect class="input" x="10" y="25" width="144" height="22" rx="4"/><text class="td" x="16" y="40">Pikachu</text><text class="td" x="148" y="40" text-anchor="end">▾</text>
+      <rect class="input" x="10" y="53" width="144" height="22" rx="4"/><text class="td" x="16" y="68">Static</text><text class="td" x="148" y="68" text-anchor="end">▾</text>
+      <text class="sm" x="10" y="93" fill="#c92a2a">Remove</text>
+    </g>
+    <g transform="translate(198,138)">
+      <rect x="0" y="0" width="164" height="104" rx="6" fill="#f8f9fa" stroke="#dee2e6"/>
+      <text class="muted" x="10" y="17">Slot 2</text>
+      <rect class="input" x="10" y="25" width="144" height="22" rx="4"/><text class="td" x="16" y="40">Charizard</text><text class="td" x="148" y="40" text-anchor="end">▾</text>
+      <rect class="input" x="10" y="53" width="144" height="22" rx="4"/><text class="td" x="16" y="68">Blaze</text><text class="td" x="148" y="68" text-anchor="end">▾</text>
+      <text class="sm" x="10" y="93" fill="#c92a2a">Remove</text>
+    </g>
+    <g transform="translate(376,138)">
+      <rect x="0" y="0" width="164" height="104" rx="6" fill="#f8f9fa" stroke="#dee2e6"/>
+      <text class="muted" x="10" y="17">Slot 3</text>
+      <rect class="input" x="10" y="25" width="144" height="22" rx="4"/><text class="td" x="16" y="40">Lapras</text><text class="td" x="148" y="40" text-anchor="end">▾</text>
+      <rect class="input" x="10" y="53" width="144" height="22" rx="4"/><text class="td" x="16" y="68">Water Absorb</text><text class="td" x="148" y="68" text-anchor="end">▾</text>
+      <text class="sm" x="10" y="93" fill="#c92a2a">Remove</text>
+    </g>
+    <g transform="translate(20,252)">
+      <rect x="0" y="0" width="164" height="104" rx="6" fill="#fff5f5" stroke="#e03131" stroke-width="1.5"/>
+      <text class="muted" x="10" y="17">Slot 4</text>
+      <rect x="10" y="25" width="144" height="22" rx="4" fill="#ffffff" stroke="#e03131"/><text class="td" x="16" y="40">Pikachu</text><text class="td" x="148" y="40" text-anchor="end">▾</text>
+      <rect class="input" x="10" y="53" width="144" height="22" rx="4"/><text class="td" x="16" y="68">Lightning Rod</text><text class="td" x="148" y="68" text-anchor="end">▾</text>
+      <text class="sm" x="10" y="93" fill="#c92a2a">Remove</text>
+    </g>
+    <g transform="translate(198,252)">
+      <rect x="0" y="0" width="164" height="104" rx="6" fill="#ffffff" stroke="#adb5bd" stroke-dasharray="5 4"/>
+      <text class="muted" x="10" y="17">Slot 5</text>
+      <text class="sm link" x="82" y="60" text-anchor="middle">+ Add Pokémon</text>
+    </g>
+    <g transform="translate(376,252)">
+      <rect x="0" y="0" width="164" height="104" rx="6" fill="#ffffff" stroke="#adb5bd" stroke-dasharray="5 4"/>
+      <text class="muted" x="10" y="17">Slot 6</text>
+      <text class="sm link" x="82" y="60" text-anchor="middle">+ Add Pokémon</text>
+    </g>
+
+    <rect x="20" y="368" width="100" height="28" rx="4" fill="#3b5bdb"/>
+    <text class="btn" x="70" y="386">Save team</text>
+    <rect x="130" y="368" width="110" height="28" rx="4" fill="#ffffff" stroke="#e03131"/>
+    <text x="185" y="386" style="font-size:12px;font-weight:600;fill:#e03131" text-anchor="middle">Delete trainer</text>
+    <text class="note" x="254" y="380">Ability list = only that Pokémon's abilities (R7).</text>
+    <text class="note" x="254" y="396">Save = one transaction; Delete cascades (R8).</text>
+  </g>
+
+  <!-- ===================================================================== -->
+  <!-- 6. Site map + legend                                                   -->
+  <!-- ===================================================================== -->
+  <text class="label" x="640" y="1088">Site map and legend</text>
+  <g transform="translate(640,1100)">
+    <rect class="frame" x="0" y="0" width="560" height="420" rx="10"/>
+
+    <rect class="node" x="30" y="40" width="130" height="36" rx="8"/><text class="nodetext" x="95" y="63">1 · Pokédex</text>
+    <rect class="node" x="215" y="40" width="130" height="36" rx="8"/><text class="nodetext" x="280" y="63">2 · Pokémon</text>
+    <rect class="node" x="400" y="40" width="130" height="36" rx="8"/><text class="nodetext" x="465" y="63">3 · Ability</text>
+    <rect class="node" x="30" y="140" width="130" height="36" rx="8"/><text class="nodetext" x="95" y="163">4 · Trainers</text>
+    <rect class="node" x="215" y="140" width="130" height="36" rx="8"/><text class="nodetext" x="280" y="163">5 · Team builder</text>
+    <rect class="node-opt" x="400" y="140" width="130" height="36" rx="8"/><text class="nodetext" x="465" y="163">Stats (optional)</text>
+
+    <line class="arrow" x1="160" y1="58" x2="213" y2="58"/>
+    <line class="arrow" x1="345" y1="52" x2="398" y2="52"/>
+    <line class="arrow" x1="398" y1="66" x2="347" y2="66"/>
+    <line class="arrow" x1="160" y1="158" x2="213" y2="158"/>
+    <line class="arrow" x1="280" y1="140" x2="280" y2="78"/>
+    <text class="muted" x="288" y="114">Pokémon on a team, and</text>
+    <text class="muted" x="288" y="128">"used by" links back</text>
+    <line class="arrow" x1="250" y1="78" x2="250" y2="138"/>
+
+    <text class="sm" x="30" y="206">The nav bar on every page links to Pokédex and Trainers.</text>
+
+    <line x1="20" y1="226" x2="540" y2="226" stroke="#dee2e6"/>
+    <text class="h2" x="30" y="252">Legend</text>
+    <text class="sm link" x="30" y="274">Blue text</text><text class="sm" x="120" y="274">link</text>
+    <text class="note" x="30" y="292">Orange italics</text><text class="sm" x="120" y="292">notes for us, not shown on the real site</text>
+    <rect x="30" y="302" width="80" height="16" rx="4" fill="#ffffff" stroke="#adb5bd" stroke-dasharray="4 3"/><text class="sm" x="120" y="314">optional, or an empty slot</text>
+    <rect x="30" y="324" width="80" height="16" rx="4" fill="#fdecea" stroke="#e03131"/><text class="sm" x="120" y="336">error from a database constraint</text>
+
+    <line x1="20" y1="354" x2="540" y2="354" stroke="#dee2e6"/>
+    <text class="h2" x="30" y="378">Optional extras</text>
+    <text class="sm" x="30" y="398">• "Try to break it" button on the team builder  • Stats page  • Sprites</text>
+  </g>
+</svg>
