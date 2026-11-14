@@ -94,7 +94,11 @@ export default async function Home({ searchParams }: { searchParams: SearchParam
             {pokemon.map((p) => (
               <tr key={p.pokemon_id} className="border-b border-gray-200/50">
                 <td className="py-1.5 pr-4 tabular-nums">{p.dex_number}</td>
-                <td className="py-1.5 pr-4 capitalize">{p.name}</td>
+                <td className="py-1.5 pr-4 capitalize">
+                  <Link href={`/pokemon/${p.pokemon_id}`} className="hover:underline">
+                    {p.name}
+                  </Link>
+                </td>
                 <td className="py-1.5 capitalize">
                   {p.type1}
                   {p.type2 ? ` / ${p.type2}` : ""}
