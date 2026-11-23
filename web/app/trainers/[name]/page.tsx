@@ -42,6 +42,19 @@ async function addMember(formData: FormData) {
   redirect(page + "?added=1");
 }
 
+async function removeMember(formData: FormData) {
+  "use server";
+  const partyMemberId = Number(formData.get("party_member_id"));
+  const page = "/trainers/" + encodeURIComponent(String(formData.get("trainer_name")));
+
+  await sql`
+    DELETE FROM party_member
+    WHERE party_member_id = ${partyMemberId}
+  `;
+
+  redirect(page + "?removed=1");
+}
+
 // The constraint that rejected the INSERT decides the message.
 const messages: Record<string, string> = {
   ck_pm_slot: "A team holds at most six Pokémon (R5)",
@@ -55,11 +68,11 @@ export default async function TrainerPage({
   searchParams,
 }: {
   params: Promise<{ name: string }>;
-  searchParams: Promise<{ pick?: string; error?: string; added?: string }>;
+  searchParams: Promise<{ pick?: string; error?: string; added?: string; removed?: string }>;
 }) {
   // The name comes from the URL, so spaces arrive as %20.
   const name = decodeURIComponent((await params).name);
-  const { pick, error, added } = await searchParams;
+  const { pick, error, added, removed } = await searchParams;
 
   const rows = await sql`
     SELECT trainer_id, name
@@ -70,7 +83,7 @@ export default async function TrainerPage({
   const trainer = rows[0];
 
   const team = await sql`
-    SELECT pm.party_slot, p.pokemon_id, p.name AS pokemon,
+    SELECT pm.party_member_id, pm.party_slot, p.pokemon_id, p.name AS pokemon,
            a.ability_id, a.name AS ability
     FROM party_member pm
     JOIN pokemon p ON p.pokemon_id = pm.pokemon_id
@@ -116,11 +129,12 @@ export default async function TrainerPage({
               <th>Slot</th>
               <th>Pokémon</th>
               <th>Ability</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {team.map((m) => (
-              <tr key={m.party_slot}>
+              <tr key={m.party_member_id}>
                 <td>{m.party_slot}</td>
                 <td>
                   <Link href={`/pokemon/${m.pokemon_id}`}>{m.pokemon}</Link>
@@ -128,11 +142,19 @@ export default async function TrainerPage({
                 <td>
                   <Link href={`/abilities/${m.ability_id}`}>{m.ability}</Link>
                 </td>
+                <td>
+                  <form action={removeMember}>
+                    <input type="hidden" name="party_member_id" value={m.party_member_id} />
+                    <input type="hidden" name="trainer_name" value={trainer.name} />
+                    <button>Remove</button>
+                  </form>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
+      {removed && <p className="saved">Removed from the team</p>}
 
       <h2>Add a Pokémon</h2>
       {error && <p className="error">{messages[error] ?? messages.other}</p>}
