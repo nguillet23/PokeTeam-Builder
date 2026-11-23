@@ -14,3 +14,11 @@ td {
   border-bottom: 1px solid #ccc;
   text-align: left;
 }
+
+.error {
+  color: red;
+}
+
+.saved {
+  color: green;
+}
