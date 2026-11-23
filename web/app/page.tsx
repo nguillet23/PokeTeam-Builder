@@ -1,16 +1,46 @@
 import { sql } from "../lib/db";
 
-export default async function Pokedex() {
-  // Regional variants share a dex number, so pokemon_id breaks the tie.
+export default async function Pokedex({
+  searchParams,
+}: {
+  searchParams: Promise<{ name?: string; type?: string }>;
+}) {
+  // The form puts ?name=...&type=... in the URL.
+  const { name = "", type = "" } = await searchParams;
+
+  // Every type that appears in the table, for the dropdown.
+  const types = await sql`
+    SELECT DISTINCT type1 AS type
+    FROM pokemon
+    ORDER BY type1
+  `;
+
+  // An empty type means "any type".
   const pokemon = await sql`
     SELECT pokemon_id, dex_number, name, type1, type2
     FROM pokemon
+    WHERE name ILIKE ${"%" + name + "%"}
+      AND (${type} = '' OR type1 = ${type} OR type2 = ${type})
     ORDER BY dex_number, pokemon_id
   `;
 
   return (
     <>
       <h1>Pokédex</h1>
+
+      <form method="get">
+        <input name="name" placeholder="Name" defaultValue={name} />{" "}
+        <select name="type" defaultValue={type}>
+          <option value="">Any type</option>
+          {types.map((t) => (
+            <option key={t.type} value={t.type}>
+              {t.type}
+            </option>
+          ))}
+        </select>{" "}
+        <button>Search</button> <a href="/">Clear</a>
+      </form>
+
       <p>{pokemon.length} Pokémon</p>
       <table>
         <thead>
