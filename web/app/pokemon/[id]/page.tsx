@@ -62,7 +62,9 @@ export default async function PokemonPage({
           {abilities.map((a) => (
             <tr key={a.ability_id}>
               <td>{a.ability_slot === 3 ? "hidden" : a.ability_slot}</td>
-              <td>{a.name}</td>
+              <td>
+                <Link href={`/abilities/${a.ability_id}`}>{a.name}</Link>
+              </td>
             </tr>
           ))}
         </tbody>
