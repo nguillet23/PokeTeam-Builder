@@ -11,6 +11,7 @@ CSC 4480 final project: a PostgreSQL database (hosted on Supabase) of every Pok√
 | `scripts/` | `organize_data.py`: turns the raw CSVs into load-ready files |
 | `Organized_Data/` | `POKEMON.csv`, `ABILITY.csv`, `POKEMON_ABILITY.csv` |
 | `db/` | PostgreSQL: create tables, load reference data from the CSVs, Row Level Security |
+| `web/` | Next.js website: browse Pok√©mon and abilities, create trainers, build teams |
 
 ## Setup
 
@@ -30,3 +31,15 @@ CSC 4480 final project: a PostgreSQL database (hosted on Supabase) of every Pok√
    | `03_row_level_security.sql` | Turns on Row Level Security: the public API can only read POKEMON, ABILITY and POKEMON_ABILITY; TRAINER and PARTY_MEMBER are hidden | SQL Editor or psql |
 
    Re-running 01 wipes the data and RLS settings, so always run 02 and 03 after it. The SQL Editor and psql keep full access either way. Passing the password through `PGPASSWORD` avoids having to URL-encode characters like `#` in a connection string.
+
+## Website
+
+Runs locally only (Node.js 20+). Copy `web/.env.example` to `web/.env.local` and put in the database password, then:
+
+```
+cd web
+npm install
+npm run dev
+```
+
+Open http://localhost:3000.
