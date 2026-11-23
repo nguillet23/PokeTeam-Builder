@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { sql } from "../lib/db";
 
 export default async function Pokedex({
@@ -55,7 +56,9 @@ export default async function Pokedex({
           {pokemon.map((p) => (
             <tr key={p.pokemon_id}>
               <td>{p.dex_number}</td>
-              <td>{p.name}</td>
+              <td>
+                <Link href={`/pokemon/${p.pokemon_id}`}>{p.name}</Link>
+              </td>
               <td>{p.type1}</td>
               <td>{p.type2}</td>
             </tr>
