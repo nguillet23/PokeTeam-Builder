@@ -1,5 +1,10 @@
 import Link from "next/link";
 import { sql } from "../lib/db";
+import {
+  formatPokemonName,
+  formatTypeName,
+  normalizeNameForSearch,
+} from "../lib/display-names";
 
 export default async function Pokedex({
   searchParams,
@@ -8,6 +13,7 @@ export default async function Pokedex({
 }) {
   // The form puts ?name=...&type=... in the URL.
   const { name = "", type = "" } = await searchParams;
+  const normalizedName = normalizeNameForSearch(name);
 
   // Every type that appears in the table, for the dropdown.
   const types = await sql`
@@ -20,7 +26,7 @@ export default async function Pokedex({
   const pokemon = await sql`
     SELECT pokemon_id, dex_number, name, type1, type2
     FROM pokemon
-    WHERE name ILIKE ${"%" + name + "%"}
+    WHERE regexp_replace(name, '[^a-z0-9]', '', 'g') ILIKE ${"%" + normalizedName + "%"}
       AND (${type} = '' OR type1 = ${type} OR type2 = ${type})
     ORDER BY dex_number, pokemon_id
   `;
@@ -35,7 +41,7 @@ export default async function Pokedex({
           <option value="">Any type</option>
           {types.map((t) => (
             <option key={t.type} value={t.type}>
-              {t.type}
+              {formatTypeName(t.type)}
             </option>
           ))}
         </select>{" "}
@@ -57,10 +63,10 @@ export default async function Pokedex({
             <tr key={p.pokemon_id}>
               <td>{p.dex_number}</td>
               <td>
-                <Link href={`/pokemon/${p.pokemon_id}`}>{p.name}</Link>
+                <Link href={`/pokemon/${p.pokemon_id}`}>{formatPokemonName(p.name)}</Link>
               </td>
-              <td>{p.type1}</td>
-              <td>{p.type2}</td>
+              <td>{formatTypeName(p.type1)}</td>
+              <td>{p.type2 && formatTypeName(p.type2)}</td>
             </tr>
           ))}
         </tbody>

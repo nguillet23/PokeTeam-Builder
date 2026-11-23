@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { sql } from "../../../lib/db";
+import { formatAbilityName, formatPokemonName } from "../../../lib/display-names";
+import PokemonPicker from "./PokemonPicker";
 
 async function deleteTrainer(formData: FormData) {
   "use server";
@@ -93,7 +95,9 @@ export default async function TrainerPage({
   `;
 
   // For the "Add a Pokémon" dropdown.
-  const allPokemon = await sql`
+  const allPokemon = await sql<
+    { pokemon_id: number; dex_number: number; name: string }[]
+  >`
     SELECT pokemon_id, dex_number, name
     FROM pokemon
     ORDER BY dex_number, pokemon_id
@@ -137,10 +141,23 @@ export default async function TrainerPage({
               <tr key={m.party_member_id}>
                 <td>{m.party_slot}</td>
                 <td>
-                  <Link href={`/pokemon/${m.pokemon_id}`}>{m.pokemon}</Link>
+                  <div className="team-pokemon">
+                    <img
+                      className="pokemon-sprite pokemon-sprite-small"
+                      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${m.pokemon_id}.png`}
+                      alt={`${formatPokemonName(m.pokemon)} sprite`}
+                      width={64}
+                      height={64}
+                    />
+                    <Link href={`/pokemon/${m.pokemon_id}`}>
+                      {formatPokemonName(m.pokemon)}
+                    </Link>
+                  </div>
                 </td>
                 <td>
-                  <Link href={`/abilities/${m.ability_id}`}>{m.ability}</Link>
+                  <Link href={`/abilities/${m.ability_id}`}>
+                    {formatAbilityName(m.ability)}
+                  </Link>
                 </td>
                 <td>
                   <form action={removeMember}>
@@ -161,16 +178,7 @@ export default async function TrainerPage({
       {added && <p className="saved">Added to the team</p>}
 
       {/* Step 1: pick a Pokémon. The page reloads with ?pick=id. */}
-      <form method="get">
-        <select name="pick" defaultValue={pick}>
-          {allPokemon.map((p) => (
-            <option key={p.pokemon_id} value={p.pokemon_id}>
-              #{p.dex_number} {p.name}
-            </option>
-          ))}
-        </select>{" "}
-        <button>Choose</button>
-      </form>
+      <PokemonPicker pokemon={allPokemon} selectedId={pick} />
 
       {/* Step 2: pick one of its abilities and add it. */}
       {picked && (
@@ -179,11 +187,11 @@ export default async function TrainerPage({
           <input type="hidden" name="trainer_name" value={trainer.name} />
           <input type="hidden" name="pokemon_id" value={picked.pokemon_id} />
           <p>
-            {picked.name} with{" "}
+            {formatPokemonName(picked.name)} with{" "}
             <select name="ability_id">
               {pickAbilities.map((a) => (
                 <option key={a.ability_id} value={a.ability_id}>
-                  {a.name}
+                  {formatAbilityName(a.name)}
                   {a.ability_slot === 3 && " (hidden)"}
                 </option>
               ))}
