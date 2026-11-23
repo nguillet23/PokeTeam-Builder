@@ -17,13 +17,49 @@ async function deleteTrainer(formData: FormData) {
   redirect("/trainers?deleted=" + encodeURIComponent(name));
 }
 
+async function addMember(formData: FormData) {
+  "use server";
+  const trainerId = Number(formData.get("trainer_id"));
+  const pokemonId = Number(formData.get("pokemon_id"));
+  const abilityId = Number(formData.get("ability_id"));
+  const page = "/trainers/" + encodeURIComponent(String(formData.get("trainer_name")));
+
+  // Put the Pokémon in the lowest empty slot. When slots 1-6 are all taken
+  // this picks 7, and ck_pm_slot rejects it (R5).
+  let error = "";
+  try {
+    await sql`
+      INSERT INTO party_member (trainer_id, party_slot, pokemon_id, ability_id)
+      SELECT ${trainerId}, MIN(s), ${pokemonId}, ${abilityId}
+      FROM generate_series(1, 7) AS s
+      WHERE s NOT IN (SELECT party_slot FROM party_member WHERE trainer_id = ${trainerId})
+    `;
+  } catch (e: any) {
+    error = e.constraint_name ?? "other";
+  }
+
+  if (error) redirect(page + "?error=" + error);
+  redirect(page + "?added=1");
+}
+
+// The constraint that rejected the INSERT decides the message.
+const messages: Record<string, string> = {
+  ck_pm_slot: "A team holds at most six Pokémon (R5)",
+  uk_pm_trainer_pokemon: "That Pokémon is already on this team (R6)",
+  fk_pm_pokemon_ability: "That ability isn't legal for this Pokémon (R7)",
+  other: "Something went wrong, the Pokémon was not added",
+};
+
 export default async function TrainerPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ name: string }>;
+  searchParams: Promise<{ pick?: string; error?: string; added?: string }>;
 }) {
   // The name comes from the URL, so spaces arrive as %20.
   const name = decodeURIComponent((await params).name);
+  const { pick, error, added } = await searchParams;
 
   const rows = await sql`
     SELECT trainer_id, name
@@ -42,6 +78,26 @@ export default async function TrainerPage({
     WHERE pm.trainer_id = ${trainer.trainer_id}
     ORDER BY pm.party_slot
   `;
+
+  // For the "Add a Pokémon" dropdown.
+  const allPokemon = await sql`
+    SELECT pokemon_id, dex_number, name
+    FROM pokemon
+    ORDER BY dex_number, pokemon_id
+  `;
+
+  // After "Choose", ?pick= holds the Pokémon. Show only its legal abilities (R2).
+  const pickId = Number(pick);
+  const pickAbilities = Number.isInteger(pickId)
+    ? await sql`
+        SELECT a.ability_id, a.name, pa.ability_slot
+        FROM pokemon_ability pa
+        JOIN ability a ON a.ability_id = pa.ability_id
+        WHERE pa.pokemon_id = ${pickId}
+        ORDER BY pa.ability_slot
+      `
+    : [];
+  const picked = allPokemon.find((p) => p.pokemon_id === pickId);
 
   return (
     <>
@@ -76,6 +132,43 @@ export default async function TrainerPage({
             ))}
           </tbody>
         </table>
+      )}
+
+      <h2>Add a Pokémon</h2>
+      {error && <p className="error">{messages[error] ?? messages.other}</p>}
+      {added && <p className="saved">Added to the team</p>}
+
+      {/* Step 1: pick a Pokémon. The page reloads with ?pick=id. */}
+      <form method="get">
+        <select name="pick" defaultValue={pick}>
+          {allPokemon.map((p) => (
+            <option key={p.pokemon_id} value={p.pokemon_id}>
+              #{p.dex_number} {p.name}
+            </option>
+          ))}
+        </select>{" "}
+        <button>Choose</button>
+      </form>
+
+      {/* Step 2: pick one of its abilities and add it. */}
+      {picked && (
+        <form action={addMember}>
+          <input type="hidden" name="trainer_id" value={trainer.trainer_id} />
+          <input type="hidden" name="trainer_name" value={trainer.name} />
+          <input type="hidden" name="pokemon_id" value={picked.pokemon_id} />
+          <p>
+            {picked.name} with{" "}
+            <select name="ability_id">
+              {pickAbilities.map((a) => (
+                <option key={a.ability_id} value={a.ability_id}>
+                  {a.name}
+                  {a.ability_slot === 3 && " (hidden)"}
+                </option>
+              ))}
+            </select>{" "}
+            <button>Add</button>
+          </p>
+        </form>
       )}
 
       <h2>Delete trainer</h2>
