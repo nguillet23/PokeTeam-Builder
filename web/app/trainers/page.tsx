@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { sql } from "../../lib/db";
 
@@ -29,9 +30,9 @@ const messages: Record<string, string> = {
 export default async function TrainersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; saved?: string }>;
+  searchParams: Promise<{ error?: string; saved?: string; deleted?: string }>;
 }) {
-  const { error, saved } = await searchParams;
+  const { error, saved, deleted } = await searchParams;
 
   // LEFT JOIN so trainers with an empty team still show, with 0.
   const trainers = await sql`
@@ -52,6 +53,7 @@ export default async function TrainersPage({
       </form>
       {error && <p className="error">{messages[error] ?? messages.other}</p>}
       {saved && <p className="saved">Created trainer {saved}</p>}
+      {deleted && <p className="saved">Deleted trainer {deleted} and their team</p>}
 
       <table>
         <thead>
@@ -63,7 +65,9 @@ export default async function TrainersPage({
         <tbody>
           {trainers.map((t) => (
             <tr key={t.trainer_id}>
-              <td>{t.name}</td>
+              <td>
+                <Link href={`/trainers/${encodeURIComponent(t.name)}`}>{t.name}</Link>
+              </td>
               <td>{t.team_size} / 6</td>
             </tr>
           ))}
